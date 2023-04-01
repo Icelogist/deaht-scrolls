@@ -1,0 +1,139 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqkc6xhbquodd"]
+
+[ext_resource type="Script" path="res://Scripts/Ui/Panels/settings_panel.gd" id="1_fim6h"]
+[ext_resource type="PackedScene" path="res://Scenes/Ui/Ui_Tools/margin.tscn" id="2_op0wx"]
+[ext_resource type="PackedScene" uid="uid://dcgmfa8ut75d8" path="res://Scenes/Scene Assets/Sound/sfx_player.tscn" id="4_7pkx4"]
+
+[node name="ResPanel" type="PanelContainer"]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -275.0
+offset_top = -225.0
+offset_right = 275.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(275, 225)
+script = ExtResource("1_fim6h")
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PanelLabel" type="PanelContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MainContainer/PanelLabel"]
+layout_mode = 2
+text = "Resolution & Camera"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel1" type="PanelContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Margin" parent="MainContainer/Panel1" instance=ExtResource("2_op0wx")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Container" type="VBoxContainer" parent="MainContainer/Panel1/Margin"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="VolLabel" type="Label" parent="MainContainer/Panel1/Margin/Container"]
+layout_mode = 2
+text = "Camera Zoom:"
+
+[node name="MSlider" type="HSlider" parent="MainContainer/Panel1/Margin/Container"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+
+[node name="Panel2" type="PanelContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Margin" parent="MainContainer/Panel2" instance=ExtResource("2_op0wx")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Container" type="VBoxContainer" parent="MainContainer/Panel2/Margin"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label3" type="Label" parent="MainContainer/Panel2/Margin/Container"]
+layout_mode = 2
+text = "Stretch mode:"
+
+[node name="OptionButton" type="OptionButton" parent="MainContainer/Panel2/Margin/Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 2
+selected = 0
+popup/item_0/text = "Blend"
+popup/item_0/id = 0
+popup/item_1/text = "Pixelated"
+popup/item_1/id = 1
+
+[node name="Label2" type="Label" parent="MainContainer/Panel2/Margin/Container"]
+layout_mode = 2
+text = "Resolution:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/Panel2/Margin/Container"]
+layout_mode = 2
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+
+[node name="Res1" type="TextEdit" parent="MainContainer/Panel2/Margin/Container/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1280"
+placeholder_text = "1280"
+wrap_mode = 1
+
+[node name="Label" type="Label" parent="MainContainer/Panel2/Margin/Container/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = " X "
+
+[node name="Res2" type="TextEdit" parent="MainContainer/Panel2/Margin/Container/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "720"
+placeholder_text = "720"
+wrap_mode = 1
+
+[node name="PanelLabel2" type="PanelContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Margin" parent="MainContainer/PanelLabel2" instance=ExtResource("2_op0wx")]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/PanelLabel2/Margin"]
+layout_mode = 2
+alignment = 2
+
+[node name="CButton" type="Button" parent="MainContainer/PanelLabel2/Margin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel
+"
+
+[node name="AButton" type="Button" parent="MainContainer/PanelLabel2/Margin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Apply"
+
+[node name="SFXPlayer" parent="." instance=ExtResource("4_7pkx4")]
+unique_name_in_owner = true
+
+[connection signal="value_changed" from="MainContainer/Panel1/Margin/Container/MSlider" to="." method="_on_m_slider_value_changed"]

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://npjjb3p81ohb"]
+
+[ext_resource type="Texture2D" uid="uid://cynmradbauu8v" path="res://Assets/Images/logo_title.svg" id="1_rkcx7"]
+[ext_resource type="Script" path="res://Scripts/Ui/Missalanious/Bouncylogo.gd" id="2_aio0b"]
+
+[node name="BouncingLogo" type="TextureRect"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -290.0
+offset_top = -121.5
+offset_right = 290.0
+offset_bottom = 121.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_rkcx7")
+script = ExtResource("2_aio0b")

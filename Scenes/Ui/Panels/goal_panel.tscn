@@ -1,0 +1,141 @@
+[gd_scene load_steps=7 format=3 uid="uid://djo658clmj8nb"]
+
+[ext_resource type="Script" path="res://Scripts/Ui/Panels/goal_panel.gd" id="1_f3jdq"]
+[ext_resource type="PackedScene" path="res://Scenes/Ui/Ui_Tools/margin.tscn" id="2_4v2hi"]
+[ext_resource type="Script" path="res://Scripts/Ui/Missalanious/ResultsPanel.gd" id="2_n6rg1"]
+[ext_resource type="Texture2D" uid="uid://si8ft5d30qsg" path="res://Assets/Images/timesrespawn.svg" id="4_v4a0o"]
+[ext_resource type="Texture2D" uid="uid://cd5qgv75gk3m5" path="res://Assets/Images/hcollect.svg" id="4_ymts4"]
+[ext_resource type="Texture2D" uid="uid://cj008hxa5cb2" path="res://Assets/Images/heartbreak.svg" id="5_7udet"]
+
+[node name="GoalPanel" type="PanelContainer"]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -275.0
+offset_top = -225.0
+offset_right = 275.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(275, 225)
+script = ExtResource("1_f3jdq")
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PanelLabel" type="PanelContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MainContainer/PanelLabel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Level Beaten!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResultsPanel" type="PanelContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("2_n6rg1")
+
+[node name="Margin" parent="MainContainer/ResultsPanel" instance=ExtResource("2_4v2hi")]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="MainContainer/ResultsPanel/Margin"]
+layout_mode = 2
+alignment = 1
+
+[node name="TimesDied" type="HBoxContainer" parent="MainContainer/ResultsPanel/Margin/VBox"]
+modulate = Color(1, 1, 0, 1)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MainContainer/ResultsPanel/Margin/VBox/TimesDied"]
+layout_mode = 2
+texture = ExtResource("4_v4a0o")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="MainContainer/ResultsPanel/Margin/VBox/TimesDied"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = " (1)"
+
+[node name="LivesRevoked" type="HBoxContainer" parent="MainContainer/ResultsPanel/Margin/VBox"]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MainContainer/ResultsPanel/Margin/VBox/LivesRevoked"]
+layout_mode = 2
+texture = ExtResource("5_7udet")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="MainContainer/ResultsPanel/Margin/VBox/LivesRevoked"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = " (1)"
+
+[node name="LivesEarned" type="HBoxContainer" parent="MainContainer/ResultsPanel/Margin/VBox"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MainContainer/ResultsPanel/Margin/VBox/LivesEarned"]
+layout_mode = 2
+texture = ExtResource("4_ymts4")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="MainContainer/ResultsPanel/Margin/VBox/LivesEarned"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = " (1/1)"
+
+[node name="TimeLabel" type="Label" parent="MainContainer/ResultsPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Time:"
+
+[node name="Congradulate" type="Label" parent="MainContainer/ResultsPanel/Margin/VBox"]
+visible = false
+modulate = Color(1, 1, 0, 1)
+layout_mode = 2
+text = "Congratulations! You beat the last level!"
+
+[node name="MainPanel" type="Panel" parent="MainContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/MainPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LButton" type="Button" parent="MainContainer/MainPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 25
+text = "Main
+Menu"
+
+[node name="CButton" type="Button" parent="MainContainer/MainPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 25
+text = "Restart
+Level"
+
+[node name="RButton" type="Button" parent="MainContainer/MainPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 25
+text = "Next
+Level"
+
+[connection signal="pressed" from="MainContainer/MainPanel/HBoxContainer/LButton" to="." method="_on_l_button_pressed"]
+[connection signal="pressed" from="MainContainer/MainPanel/HBoxContainer/CButton" to="." method="_on_c_button_pressed"]
+[connection signal="pressed" from="MainContainer/MainPanel/HBoxContainer/RButton" to="." method="_on_r_button_pressed"]

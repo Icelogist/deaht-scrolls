@@ -1,0 +1,112 @@
+[gd_scene load_steps=14 format=3 uid="uid://di0ss3ooiqm0n"]
+
+[ext_resource type="Script" path="res://Scripts/heart.gd" id="1_3suvj"]
+[ext_resource type="Texture2D" uid="uid://cd5qgv75gk3m5" path="res://Assets/Images/hcollect.svg" id="2_43jhh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qkixc"]
+size = Vector2(45.625, 47.875)
+
+[sub_resource type="Animation" id="Animation_awhh3"]
+resource_name = "floating"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("Hcollect:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(),
+"points": PackedFloat32Array(),
+"times": PackedFloat32Array()
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hcollect:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(5, -0.5, 0, 0.5, 0, -5, -0.5, 0, 0.5, 0, 5, -0.5, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1.6, 3)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b2m6j"]
+_data = {
+"floating": SubResource("Animation_awhh3")
+}
+
+[sub_resource type="Gradient" id="Gradient_k6iy8"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.263889, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_id1m0"]
+gradient = SubResource("Gradient_k6iy8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jlxqv"]
+emission_shape = 1
+emission_sphere_radius = 40.0
+particle_flag_disable_z = true
+gravity = Vector3(0, -10, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.1
+scale_max = 0.2
+color_ramp = SubResource("GradientTexture1D_id1m0")
+
+[sub_resource type="Gradient" id="Gradient_87r8d"]
+colors = PackedColorArray(1, 1, 1, 0.678431, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5ynvr"]
+gradient = SubResource("Gradient_87r8d")
+
+[sub_resource type="Curve" id="Curve_nj4xf"]
+max_value = 10.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1.45455), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1f11k"]
+curve = SubResource("Curve_nj4xf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qykii"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_curve = SubResource("CurveTexture_1f11k")
+color_ramp = SubResource("GradientTexture1D_5ynvr")
+
+[node name="Heart" type="Area2D"]
+script = ExtResource("1_3suvj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6.0625)
+shape = SubResource("RectangleShape2D_qkixc")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_b2m6j")
+}
+
+[node name="Hcollect" type="Sprite2D" parent="."]
+position = Vector2(0, -2.86051)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_43jhh")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(1, 1, 1, 0.537255)
+process_material = SubResource("ParticleProcessMaterial_jlxqv")
+texture = ExtResource("2_43jhh")
+lifetime = 4.0
+randomness = 0.62
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_qykii")
+texture = ExtResource("2_43jhh")
+lifetime = 3.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

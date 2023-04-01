@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://nivi6duuahkh"]
+
+[ext_resource type="Script" path="res://Scripts/beginning.gd" id="1_1dkwh"]
+[ext_resource type="PackedScene" uid="uid://npjjb3p81ohb" path="res://Scenes/Ui/Ui_Tools/bouncing_logo.tscn" id="2_an61u"]
+[ext_resource type="PackedScene" path="res://Scenes/Ui/Ui_Tools/margin.tscn" id="2_kliw6"]
+[ext_resource type="Theme" uid="uid://c86vt5kgcl3to" path="res://Assets/Themes/Bold.tres" id="2_rpjh4"]
+[ext_resource type="Script" path="res://Scripts/Cameraweird.gd" id="3_37noh"]
+[ext_resource type="PackedScene" uid="uid://be38bkpkma4u1" path="res://Scenes/Scene Assets/background.tscn" id="5_c0i3i"]
+
+[node name="beginning" type="Node2D"]
+script = ExtResource("1_1dkwh")
+
+[node name="Background" parent="." instance=ExtResource("5_c0i3i")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+process_mode = 3
+rotation = 0.785398
+ignore_rotation = false
+script = ExtResource("3_37noh")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BouncingLogo" parent="CanvasLayer" instance=ExtResource("2_an61u")]
+
+[node name="Margin" parent="CanvasLayer" instance=ExtResource("2_kliw6")]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Margin"]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Margin/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer4" type="PanelContainer" parent="CanvasLayer/Margin/VBoxContainer/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0.658824)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.0
+
+[node name="Margin" parent="CanvasLayer/Margin/VBoxContainer/HBoxContainer/PanelContainer4" instance=ExtResource("2_kliw6")]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Margin/VBoxContainer/HBoxContainer/PanelContainer4/Margin"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 30
+text = "This screen was created because of a limitation with the HTML export where you have to click on the window to hear any sound. Please continue."
+
+[node name="Button" type="Button" parent="CanvasLayer/Margin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.37
+theme = ExtResource("2_rpjh4")
+theme_override_font_sizes/font_size = 50
+text = "Click Me!"
+
+[connection signal="pressed" from="CanvasLayer/Margin/Button" to="." method="_on_button_pressed"]

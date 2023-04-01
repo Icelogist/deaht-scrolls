@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxbbqducogx8e"]
+
+[ext_resource type="Script" path="res://Scripts/Ui/Panels/settings_panel.gd" id="1_2undx"]
+[ext_resource type="PackedScene" path="res://Scenes/Ui/Ui_Tools/margin.tscn" id="2_su7vx"]
+[ext_resource type="Theme" uid="uid://c86vt5kgcl3to" path="res://Assets/Themes/Bold.tres" id="3_neftk"]
+[ext_resource type="PackedScene" uid="uid://dcgmfa8ut75d8" path="res://Scenes/Scene Assets/Sound/sfx_player.tscn" id="4_27yhl"]
+
+[node name="VolumePanel" type="PanelContainer"]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 50.0
+offset_top = -78.0
+offset_right = 163.0
+offset_bottom = 79.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("1_2undx")
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="VolPanel" type="PanelContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Margin" parent="MainContainer/VolPanel" instance=ExtResource("2_su7vx")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VolContainer" type="VBoxContainer" parent="MainContainer/VolPanel/Margin"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="VolLabel" type="Label" parent="MainContainer/VolPanel/Margin/VolContainer"]
+layout_mode = 2
+theme = ExtResource("3_neftk")
+theme_override_font_sizes/font_size = 20
+text = "Volume(s):"
+
+[node name="MLabel" type="Label" parent="MainContainer/VolPanel/Margin/VolContainer"]
+layout_mode = 2
+text = "Music Volume:"
+
+[node name="MSlider" type="HSlider" parent="MainContainer/VolPanel/Margin/VolContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+
+[node name="SFXLabel" type="Label" parent="MainContainer/VolPanel/Margin/VolContainer"]
+layout_mode = 2
+text = "
+SFX Volume:"
+
+[node name="SFXSlider" type="HSlider" parent="MainContainer/VolPanel/Margin/VolContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+
+[node name="SFXPlayer" parent="." instance=ExtResource("4_27yhl")]
+unique_name_in_owner = true
+
+[connection signal="value_changed" from="MainContainer/VolPanel/Margin/VolContainer/MSlider" to="." method="_on_m_slider_value_changed"]
+[connection signal="value_changed" from="MainContainer/VolPanel/Margin/VolContainer/SFXSlider" to="." method="_on_sfx_slider_value_changed"]

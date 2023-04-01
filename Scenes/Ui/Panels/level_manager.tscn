@@ -1,0 +1,152 @@
+[gd_scene load_steps=5 format=3 uid="uid://w27v7wilyld1"]
+
+[ext_resource type="PackedScene" path="res://Scenes/Ui/Ui_Tools/margin.tscn" id="1_anp6f"]
+[ext_resource type="Script" path="res://Scripts/Ui/Panels/level_manager.gd" id="1_ghtow"]
+[ext_resource type="Texture2D" uid="uid://fcrq0kycqynx" path="res://Assets/Images/Level Covers/Cover_1.png" id="3_u6ffn"]
+[ext_resource type="Theme" uid="uid://c86vt5kgcl3to" path="res://Assets/Themes/Bold.tres" id="3_v4uix"]
+
+[node name="LevelManager" type="PanelContainer"]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -275.0
+offset_top = -225.0
+offset_right = 275.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(275, 225)
+script = ExtResource("1_ghtow")
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PanelLabel" type="PanelContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MainContainer/PanelLabel"]
+layout_mode = 2
+text = "Level Select
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="IconPanel" type="PanelContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Margin" parent="MainContainer/IconPanel" instance=ExtResource("1_anp6f")]
+layout_mode = 2
+margin = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="MainContainer/IconPanel/Margin"]
+layout_mode = 2
+
+[node name="Margin" parent="MainContainer/IconPanel/Margin/PanelContainer" instance=ExtResource("1_anp6f")]
+layout_mode = 2
+margin = 10
+
+[node name="Cover" type="TextureRect" parent="MainContainer/IconPanel/Margin/PanelContainer/Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_u6ffn")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="MainPanel" type="Panel" parent="MainContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/MainPanel"]
+layout_mode = 2
+offset_right = 550.0
+offset_bottom = 119.0
+
+[node name="LButton" type="Button" parent="MainContainer/MainPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 40
+text = "<"
+
+[node name="Panel" type="Panel" parent="MainContainer/MainPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.8
+
+[node name="Panel" type="Panel" parent="MainContainer/MainPanel/HBoxContainer/Panel"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -59.5
+offset_top = 9.0
+offset_right = 60.5
+offset_bottom = 59.0
+grow_horizontal = 2
+
+[node name="LevName" type="Label" parent="MainContainer/MainPanel/HBoxContainer/Panel/Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -34.5
+offset_right = 34.5
+offset_bottom = 26.0
+grow_horizontal = 2
+theme = ExtResource("3_v4uix")
+theme_override_font_sizes/font_size = 20
+text = "Tutorial"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevNum" type="Label" parent="MainContainer/MainPanel/HBoxContainer/Panel/Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -34.5
+offset_top = -26.0
+offset_right = 34.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Level 0/5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnButton" type="Button" parent="MainContainer/MainPanel/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -57.5
+offset_top = -55.0
+offset_right = 58.5
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("3_v4uix")
+text = "Enter"
+
+[node name="RButton" type="Button" parent="MainContainer/MainPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 40
+text = ">"
+
+[connection signal="pressed" from="MainContainer/MainPanel/HBoxContainer/LButton" to="." method="_on_l_button_pressed"]
+[connection signal="pressed" from="MainContainer/MainPanel/HBoxContainer/Panel/EnButton" to="." method="_on_en_button_pressed"]
+[connection signal="pressed" from="MainContainer/MainPanel/HBoxContainer/RButton" to="." method="_on_r_button_pressed"]

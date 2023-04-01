@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://ctaqx8lw7ukk"]
+
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_6kj8f"]
+[ext_resource type="Script" path="res://Scripts/Camera.gd" id="1_kwvtk"]
+[ext_resource type="PackedScene" uid="uid://d1qkqvp4kgbse" path="res://Scenes/Scene Assets/Sound/music_player.tscn" id="3_g0v2q"]
+[ext_resource type="PackedScene" uid="uid://be38bkpkma4u1" path="res://Scenes/Scene Assets/background.tscn" id="4_nim3t"]
+[ext_resource type="PackedScene" uid="uid://4g6me2b2pnf4" path="res://Scenes/Ui/Ui_Tools/other_key_inputs.tscn" id="6_8rlor"]
+[ext_resource type="PackedScene" uid="uid://8lq0th82yopa" path="res://Scenes/Ui/player_ui.tscn" id="8_wogy2"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_6kj8f")
+
+[node name="Camera" type="Camera2D" parent="."]
+process_mode = 3
+position_smoothing_enabled = true
+position_smoothing_speed = 7.0
+script = ExtResource("1_kwvtk")
+
+[node name="MusicPlayer" parent="." instance=ExtResource("3_g0v2q")]
+process_mode = 3
+autoplay_song_id = 1
+
+[node name="Background" parent="." instance=ExtResource("4_nim3t")]
+
+[node name="PlayerUI" parent="." instance=ExtResource("8_wogy2")]
+
+[node name="SpawnCooldown" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="OtherKeyInputs" parent="." instance=ExtResource("6_8rlor")]
+
+[connection signal="timeout" from="SpawnCooldown" to="." method="_on_spawn_cooldown_timeout"]

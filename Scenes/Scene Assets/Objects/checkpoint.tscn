@@ -1,0 +1,80 @@
+[gd_scene load_steps=10 format=3 uid="uid://dqng7xj10e8kq"]
+
+[ext_resource type="Script" path="res://Scripts/Checkpoint.gd" id="1_nfgbn"]
+[ext_resource type="Texture2D" uid="uid://dascv70it8gcx" path="res://Assets/Images/spawnpoint.svg" id="2_6q4qw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7q5wg"]
+size = Vector2(50, 50)
+
+[sub_resource type="Curve" id="Curve_nfgwp"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.502857, 0.190909), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_fkgk2"]
+curve = SubResource("Curve_nfgwp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_trmp6"]
+particle_flag_disable_z = true
+initial_velocity_min = -100.0
+initial_velocity_max = 100.0
+angular_velocity_min = 100.0
+angular_velocity_max = 100.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_curve = SubResource("CurveTexture_fkgk2")
+
+[sub_resource type="Curve" id="Curve_c7jji"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.502857, 0.190909), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_lohjl"]
+curve = SubResource("Curve_c7jji")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eavu0"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = -100.0
+initial_velocity_max = 100.0
+angular_velocity_min = 100.0
+angular_velocity_max = 100.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+tangential_accel_min = 100.0
+tangential_accel_max = 100.0
+scale_curve = SubResource("CurveTexture_lohjl")
+
+[node name="Checkpoint" type="Area2D"]
+script = ExtResource("1_nfgbn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7q5wg")
+
+[node name="Sprites" type="Node2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+
+[node name="Spawnpoint" type="Sprite2D" parent="Sprites"]
+z_index = -1
+texture = ExtResource("2_6q4qw")
+
+[node name="Spawnpoint2" type="Sprite2D" parent="Sprites"]
+modulate = Color(1, 1, 1, 0.490196)
+texture = ExtResource("2_6q4qw")
+
+[node name="ActivactedParticle" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_trmp6")
+texture = ExtResource("2_6q4qw")
+lifetime = 2.0
+
+[node name="ActivactedParticle2" type="GPUParticles2D" parent="."]
+z_index = -1
+emitting = false
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_eavu0")
+texture = ExtResource("2_6q4qw")
+lifetime = 3.0
+speed_scale = 0.5
+visibility_rect = Rect2(-300, -300, 600, 600)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

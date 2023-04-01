@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=3 uid="uid://cj4fcrxxoaj4e"]
+
+[ext_resource type="PackedScene" path="res://Scenes/Ui/Ui_Tools/margin.tscn" id="1_s8t8q"]
+
+[node name="AboutPanel" type="PanelContainer"]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -275.0
+offset_top = -225.0
+offset_right = 275.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(275, 225)
+size_flags_horizontal = 4
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PanelLabel" type="PanelContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MainContainer/PanelLabel"]
+layout_mode = 2
+text = "Credits"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MainPanel" type="Panel" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Margin" parent="MainContainer/MainPanel" instance=ExtResource("1_s8t8q")]
+layout_mode = 1
+margin = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="MainContainer/MainPanel/Margin"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainContainer/MainPanel/Margin/PanelContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[b]Original Author:[/b]
+Icelogist - Creator, Programmer, Artist, Level Designer, Game Designer, Ui Design, Logo Designer, and Procrastinator
+
+[b]Composer(s):[/b]
+Alf42red - Title and Gameplay Theme (Mauiwowi)
+Disasterocks - Unused Credits Theme (A Friend)
+
+[b]Original Play Tester(s):[/b]
+OrdinarilyReal
+Disasterocks
+WontonSoup
+BluAnimator
+MELONKING.NET
+beekat (A.K.A ws.vhs (A.K.A cherry.mp4 (A.K.A mochi)))
+Wuffles"

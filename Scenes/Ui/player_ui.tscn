@@ -1,0 +1,141 @@
+[gd_scene load_steps=13 format=3 uid="uid://8lq0th82yopa"]
+
+[ext_resource type="Script" path="res://Scripts/Ui/Ui.gd" id="1_8psng"]
+[ext_resource type="Script" path="res://Scripts/goal_reached.gd" id="1_216yi"]
+[ext_resource type="PackedScene" path="res://Scenes/Ui/Ui_Tools/margin.tscn" id="2_wrl6r"]
+[ext_resource type="Texture2D" uid="uid://b8ac46ydgf056" path="res://Assets/Images/Icons/paused_1.svg" id="3_5hh45"]
+[ext_resource type="Texture2D" uid="uid://hlwj83uvfepj" path="res://Assets/Images/Icons/heart.svg" id="4_bagtb"]
+[ext_resource type="Theme" uid="uid://c86vt5kgcl3to" path="res://Assets/Themes/Bold.tres" id="5_7cau3"]
+[ext_resource type="Script" path="res://Scripts/Ui/Missalanious/LivesLabel.gd" id="6_m75xo"]
+[ext_resource type="Script" path="res://Scripts/Ui/DeathNote.gd" id="7_2a38e"]
+[ext_resource type="Texture2D" uid="uid://duyftj24dxbuo" path="res://Assets/Images/ringblur.svg" id="7_rx2ao"]
+[ext_resource type="PackedScene" uid="uid://ck242w0xwt1th" path="res://Scenes/Ui/Ui_Tools/key_input_list.tscn" id="9_fb7uy"]
+[ext_resource type="PackedScene" uid="uid://dcgmfa8ut75d8" path="res://Scenes/Scene Assets/Sound/sfx_player.tscn" id="10_dubst"]
+[ext_resource type="PackedScene" uid="uid://cm7uib02wv3np" path="res://Scenes/Ui/Ui_Tools/stopwatch.tscn" id="10_pl7y7"]
+
+[node name="PlayerUI" type="CanvasLayer"]
+script = ExtResource("1_216yi")
+
+[node name="Ui" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8psng")
+
+[node name="Margin" parent="Ui" instance=ExtResource("2_wrl6r")]
+top_level = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = -32.0
+offset_right = 32.0
+offset_bottom = 64.0
+grow_vertical = 1
+
+[node name="PauseButton" type="TextureButton" parent="Ui/Margin"]
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("3_5hh45")
+
+[node name="LivesCounter" type="Control" parent="Ui"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -254.0
+offset_right = 316.0
+offset_bottom = -1.0
+grow_vertical = 0
+script = ExtResource("6_m75xo")
+
+[node name="Margin2" parent="Ui/LivesCounter" instance=ExtResource("2_wrl6r")]
+layout_mode = 1
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 320.0
+offset_bottom = 255.0
+grow_horizontal = 1
+grow_vertical = 1
+margin = 25
+
+[node name="TextureRect" type="TextureRect" parent="Ui/LivesCounter/Margin2"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_bagtb")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Ui/LivesCounter/Margin2"]
+layout_mode = 2
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Ui/LivesCounter/Margin2/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Ui/LivesCounter/Margin2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Margin" parent="Ui/LivesCounter/Margin2/VBoxContainer/HBoxContainer/PanelContainer" instance=ExtResource("2_wrl6r")]
+layout_mode = 2
+
+[node name="LivesLabel" type="Label" parent="Ui/LivesCounter/Margin2/VBoxContainer/HBoxContainer/PanelContainer/Margin"]
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("5_7cau3")
+theme_override_font_sizes/font_size = 50
+text = "x5 (0)"
+vertical_alignment = 1
+
+[node name="DeathNote" type="Label" parent="Ui"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -63.0
+offset_top = -108.0
+offset_right = 64.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "heheheheheheh"
+horizontal_alignment = 1
+script = ExtResource("7_2a38e")
+
+[node name="RingBlur" type="TextureRect" parent="Ui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_rx2ao")
+
+[node name="Margin2" parent="Ui" instance=ExtResource("2_wrl6r")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_bottom = 0.0
+offset_left = -301.0
+offset_bottom = 106.0
+grow_horizontal = 0
+grow_vertical = 1
+
+[node name="Stopwatch" parent="Ui/Margin2" instance=ExtResource("10_pl7y7")]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="KeyInputList" parent="." instance=ExtResource("9_fb7uy")]
+
+[node name="SFXPlayer" parent="." instance=ExtResource("10_dubst")]
+unique_name_in_owner = true
+
+[connection signal="pressed" from="Ui/Margin/PauseButton" to="Ui" method="_on_texture_button_pressed"]

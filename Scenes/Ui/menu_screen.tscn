@@ -1,0 +1,145 @@
+[gd_scene load_steps=9 format=3 uid="uid://cjcphb66nkld8"]
+
+[ext_resource type="Script" path="res://Scripts/Ui/menu_screen.gd" id="1_2nx7y"]
+[ext_resource type="PackedScene" uid="uid://npjjb3p81ohb" path="res://Scenes/Ui/Ui_Tools/bouncing_logo.tscn" id="2_qtgyl"]
+[ext_resource type="PackedScene" path="res://Scenes/Ui/Ui_Tools/margin.tscn" id="3_mplko"]
+[ext_resource type="FontFile" uid="uid://dnld7n7ao70e3" path="res://Assets/Fonts/OpenSans-Bold.ttf" id="3_y8cet"]
+[ext_resource type="Theme" uid="uid://c86vt5kgcl3to" path="res://Assets/Themes/Bold.tres" id="4_r06e1"]
+[ext_resource type="Script" path="res://Scripts/Ui/Missalanious/VolButton.gd" id="6_0n00k"]
+[ext_resource type="PackedScene" uid="uid://w27v7wilyld1" path="res://Scenes/Ui/Panels/level_manager.tscn" id="7_5d5s1"]
+[ext_resource type="Script" path="res://Scripts/Ui/Missalanious/FSButton.gd" id="7_awmeg"]
+
+[node name="MenuScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2nx7y")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BouncingLogo" parent="." instance=ExtResource("2_qtgyl")]
+layout_mode = 1
+
+[node name="Margin" parent="." instance=ExtResource("3_mplko")]
+layout_mode = 1
+anchors_preset = 9
+anchor_right = 0.0
+offset_right = 195.0
+grow_horizontal = 1
+
+[node name="ButtonPanel" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+
+[node name="TopPanel" type="Panel" parent="Margin/ButtonPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LevelLabel" type="Label" parent="Margin/ButtonPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("3_y8cet")
+theme_override_font_sizes/font_size = 25
+text = "Level Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RedoButton" type="Button" parent="Margin/ButtonPanel"]
+layout_mode = 2
+theme = ExtResource("4_r06e1")
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "Restart Level"
+
+[node name="ReturnButton" type="Button" parent="Margin/ButtonPanel"]
+layout_mode = 2
+theme = ExtResource("4_r06e1")
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "  Return to Main Menu  "
+
+[node name="MenuLabel2" type="Label" parent="Margin/ButtonPanel"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("3_y8cet")
+theme_override_font_sizes/font_size = 25
+text = "Main Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevButton" type="Button" parent="Margin/ButtonPanel"]
+layout_mode = 2
+theme = ExtResource("4_r06e1")
+text = "Level Select"
+
+[node name="ControlButton" type="Button" parent="Margin/ButtonPanel"]
+layout_mode = 2
+theme = ExtResource("4_r06e1")
+text = "Credits
+"
+
+[node name="MenuLabel3" type="Label" parent="Margin/ButtonPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.988235, 1, 0.603922, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("3_y8cet")
+theme_override_font_sizes/font_size = 25
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VolButton" type="Button" parent="Margin/ButtonPanel"]
+layout_mode = 2
+theme = ExtResource("4_r06e1")
+theme_override_colors/font_color = Color(0.988235, 1, 0.603922, 1)
+text = "Volume"
+script = ExtResource("6_0n00k")
+
+[node name="FSButton" type="Button" parent="Margin/ButtonPanel"]
+layout_mode = 2
+theme = ExtResource("4_r06e1")
+theme_override_colors/font_color = Color(0.988235, 1, 0.603922, 1)
+text = "Fullscreen"
+script = ExtResource("7_awmeg")
+
+[node name="ResButton" type="Button" parent="Margin/ButtonPanel"]
+visible = false
+layout_mode = 2
+theme = ExtResource("4_r06e1")
+theme_override_colors/font_color = Color(0.988235, 1, 0.603922, 1)
+text = "Resolution & Camera"
+
+[node name="BottomPanel" type="Panel" parent="Margin/ButtonPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VersionNumber" type="Label" parent="Margin/ButtonPanel/BottomPanel"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -26.0
+offset_right = 122.0
+grow_vertical = 0
+text = " v1.0.1"
+
+[node name="LevelManager" parent="." instance=ExtResource("7_5d5s1")]
+layout_mode = 1
+
+[connection signal="pressed" from="Margin/ButtonPanel/RedoButton" to="." method="_on_redo_button_pressed"]
+[connection signal="pressed" from="Margin/ButtonPanel/ReturnButton" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="Margin/ButtonPanel/LevButton" to="." method="_on_lev_button_pressed"]
+[connection signal="pressed" from="Margin/ButtonPanel/ControlButton" to="." method="_on_about_button_pressed"]
+[connection signal="pressed" from="Margin/ButtonPanel/VolButton" to="Margin/ButtonPanel/VolButton" method="_on_pressed"]
+[connection signal="pressed" from="Margin/ButtonPanel/FSButton" to="Margin/ButtonPanel/FSButton" method="_on_pressed"]
+[connection signal="pressed" from="Margin/ButtonPanel/ResButton" to="." method="_on_res_button_pressed"]
