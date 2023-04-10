@@ -8,4 +8,4 @@ This project utilizes **Godot 4.0** which is required if you want to actually us
 
 ![Cueb :3 (Name of the Player Character)](./Assets/Images/cueb.svg)
 
-Licencing is coming soon.
+The Project Files are licenced under the GPL v3 Licence. (See "LICENCE" for more info) 
