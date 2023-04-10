@@ -1,4 +1,4 @@
-# deaht-scrolls
+# Deaht Scrolls!
 
 Hello! Welcome to the Source!... code...
 This project utilizes **Godot 4.0** which is required if you want to actually use the project files. 
